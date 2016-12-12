@@ -11782,7 +11782,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[72]:</div>
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># 题目中针对的&quot;针&quot;打错了</span>
@@ -11837,7 +11837,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[73]:</div>
+<div class="prompt input_prompt">In&nbsp;[16]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># 显示数据集的一个描述</span>
@@ -11964,7 +11964,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[74]:</div>
+<div class="prompt input_prompt">In&nbsp;[17]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># TODO：从数据集中选择三个你希望抽样的数据点的索引</span>
@@ -11974,6 +11974,7 @@ div#notebook {
 <span class="n">samples</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">indices</span><span class="p">],</span> <span class="n">columns</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
 <span class="k">print</span> <span class="s2">&quot;Chosen samples of wholesale customers dataset:&quot;</span>
 <span class="n">display</span><span class="p">(</span><span class="n">samples</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">data</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
 </pre></div>
 
 </div>
@@ -12042,6 +12043,19 @@ div#notebook {
 
 </div>
 
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Fresh               12000.297727
+Milk                 5796.265909
+Grocery              7951.277273
+Frozen               3071.931818
+Detergents_Paper     2881.493182
+Delicatessen         1524.870455
+dtype: float64 33226.1363636
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -12063,10 +12077,10 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>回答:</strong>
-0号客户,采购前四项都较多,并且Grocery花费最多,大约占45%,Milk和Detergents_Paper也都在20%左右,所以0客户类型可能为零售商.</p>
-<p>1号客户花费在Fresh,Milk,Grocery和Delicatessen均差不多,Frozen稍小,而且总花销也相比其他两个客户要小很多,推测1号客户可能为咖啡馆或者快餐等较小规模类型.</p>
-<p>2号客户花费80%左右成本在Fresh上,可知该客户食物流动性较大,可推测3号客户为大型饭店或者食品店.</p>
+<p><strong>回答:</strong></p>
+<p>0号客户,花费总额较数据平均值33226高约1/4,而且采购前四项都较多,并且Grocery花费最多,大约占45%,均远超数据平均水平,Milk和Detergents_Paper也都在20%左右,所以0客户类型可能为零售商.</p>
+<p>1号客户花费在总额为大约一万三,远小于平均水平,各项单花费中Fresh,Milk,Grocery和Delicatessen均差不多,占据总额大约85%,可见1号客户在自身产业结构中这些新鲜食品和熟食的重要性,因此推测1号客户可能为咖啡馆或者快餐等较小规模类型.</p>
+<p>2号客户总额大约27000,略低于平均水平,花费80%左右成本在Fresh上,Fresh也在整个数据中高于平均值,其他五种产品均小于总体平均水平且占比重较低,由此可知该客户食物流动性较大,可推测3号客户为大型饭店或者食品店.</p>
 
 </div>
 </div>
@@ -12093,17 +12107,18 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[75]:</div>
+<div class="prompt input_prompt">In&nbsp;[18]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.cross_validation</span> <span class="kn">import</span> <span class="n">train_test_split</span>
 <span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">DecisionTreeRegressor</span>
 
 <span class="c1"># TODO：为DataFrame创建一个副本，用&#39;drop&#39;函数丢弃一些指定的特征</span>
+<span class="n">label</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Detergents_Paper&#39;</span><span class="p">]</span>
 <span class="n">new_data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;Detergents_Paper&#39;</span><span class="p">],</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
 
 <span class="c1"># TODO：使用给定的特征作为目标，将数据分割成训练集和测试集</span>
-<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">new_data</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">new_data</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.25</span><span class="p">)</span>
 
 <span class="c1"># TODO：创建一个决策树回归器并在训练集上训练它</span>
 <span class="n">regressor</span> <span class="o">=</span> <span class="n">DecisionTreeRegressor</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
@@ -12124,7 +12139,7 @@ div#notebook {
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>0.633536479169
+<pre>0.792713161152
 </pre>
 </div>
 </div>
@@ -12149,9 +12164,8 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>回答:</strong> 
-选择了 Detergents_Paper这个特征,得分是0.6335. 由得分可知是必要的.
-因此客户购买Detergents_Paper,与购买其他是相关的.</p>
+<p><strong>回答:</strong></p>
+<p>选择了 Detergents_Paper这个特征,得分是0.694.说明Detergents_Paper可以由其他类型的消费来推断出.故不是必要的.</p>
 
 </div>
 </div>
@@ -12168,7 +12182,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[76]:</div>
+<div class="prompt input_prompt">In&nbsp;[19]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># 对于数据中的每一对特征构造一个散布矩阵</span>
@@ -14755,7 +14769,7 @@ KIqSMv8fleE3z1y+k70AAAAASUVORK5CYII=
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[86]:</div>
+<div class="prompt input_prompt">In&nbsp;[20]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># TODO：使用自然对数缩放数据</span>
@@ -20364,7 +20378,7 @@ oiiKoiiKomQB2sijKIqiKIqiKIqiKIqSBfx/ntL30or4NpYAAAAASUVORK5CYII=
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[87]:</div>
+<div class="prompt input_prompt">In&nbsp;[21]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># 展示经过对数变换后的样本数据</span>
@@ -20455,7 +20469,7 @@ oiiKoiiKomQB2sijKIqiKIqiKIqiKIqSBfx/ntL30or4NpYAAAAASUVORK5CYII=
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[88]:</div>
+<div class="prompt input_prompt">In&nbsp;[22]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># 对于每一个特征，找到值异常高或者是异常低的数据点</span>
@@ -21128,7 +21142,7 @@ oiiKoiiKomQB2sijKIqiKIqiKIqiKIqSBfx/ntL30or4NpYAAAAASUVORK5CYII=
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>回答:</strong>
 65Fresh &amp; Frozen, 66Fresh &amp; Delicatessen, 75 Grocery &amp; Detergents_Paper, 128 Fresh &amp; Delicatessen, 154 Grocery, Milk &amp; Delicatessen.</p>
-<p>应该被移除,因为这些数据点在两个或三个特征下被看做是异常点,这样,他们就有可能是真正的异常点,如果不移除的话,会对模型准确率造成影响,但是如果只在一个特征下被看做是异常点的话,如果移除太多会导致数据不足,模型泛化能力不足.</p>
+<p>应该被移除,因为这些数据点在两个或三个特征下被看做是异常点,这样,他们就有可能是真正的异常点,如果不移除的话,会对模型准确率造成影响,但是如果只在一个特征下被看做是异常点的话,如果移除太多会导致数据不足,模型泛化能力不足,因此,对于仅在一个特征出现的异常值,我随机选择了一小部分来移除.</p>
 
 </div>
 </div>
@@ -21160,12 +21174,12 @@ oiiKoiiKomQB2sijKIqiKIqiKIqiKIqSBfx/ntL30or4NpYAAAAASUVORK5CYII=
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[90]:</div>
+<div class="prompt input_prompt">In&nbsp;[31]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.decomposition</span> <span class="kn">import</span> <span class="n">PCA</span>
 <span class="c1"># TODO：通过在good data上使用PCA，将其转换成和当前特征数一样多的维度</span>
-<span class="n">pca</span> <span class="o">=</span> <span class="n">PCA</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">good_data</span><span class="p">)</span>
+<span class="n">pca</span> <span class="o">=</span> <span class="n">PCA</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">good_data</span><span class="p">)</span>
 
 <span class="c1"># TODO：使用上面的PCA拟合将变换施加在log_samples上</span>
 <span class="n">pca_samples</span> <span class="o">=</span> <span class="n">pca</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">log_samples</span><span class="p">)</span>
@@ -21794,7 +21808,7 @@ SZKkCotGkiRJkiRJqvg/o5NBfJ+pYnsAAAAASUVORK5CYII=
 <p><strong>回答:</strong>
 第一个和第二个主成分总共表示了0.7061的方差. 
 前四个主成分总共表示了0.9293的方差.</p>
-<p>在第一主成分中(0.4521方差),权重最大的是Detergents_Paper,其次稍小的两个是Milk &amp; Grocery,从客户花费来看,也说明了这三个特征之间的相关性较大,也就是在前面分析的.类似地,第二主成分(0.2541方差)权重最大的三个是另外三个特征Fresh ,Frozen &amp; Deli.第三四主成分解释方差较小,它们的主要权重也集中在Fresh ,Frozen &amp; Deli这三个参数.  所以可以看出这四个主成分可以很好地用来作为新特征描绘客户.</p>
+<p>在第一主成分中(0.4521方差),权重最大的是Detergents_Paper,其次稍小的两个是Milk &amp; Grocery,从客户花费来看,第一主成分可能代表零售商这类客户.类似地,第二主成分(0.2541方差)权重最大的三个是另外三个特征Fresh ,Frozen &amp; Delicateseen,推断第二主成分可能代表咖啡馆小餐馆这类客户.第三四主成分解释方差较小,它们的主要权重也集中在Fresh ,Frozen &amp; Deli这三个参数,所以第三四主成分也代表了一些小型规模的餐馆.  所以可以看出这四个主成分可以很好地用来作为新特征描绘客户.</p>
 
 </div>
 </div>
@@ -21811,7 +21825,7 @@ SZKkCotGkiRJkiRJqvg/o5NBfJ+pYnsAAAAASUVORK5CYII=
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[91]:</div>
+<div class="prompt input_prompt">In&nbsp;[24]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># 展示经过PCA转换的sample log-data</span>
@@ -21899,7 +21913,7 @@ SZKkCotGkiRJkiRJqvg/o5NBfJ+pYnsAAAAASUVORK5CYII=
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[93]:</div>
+<div class="prompt input_prompt">In&nbsp;[25]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># TODO：通过在good data上进行PCA，将其转换成两个维度</span>
@@ -21932,7 +21946,7 @@ SZKkCotGkiRJkiRJqvg/o5NBfJ+pYnsAAAAASUVORK5CYII=
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[94]:</div>
+<div class="prompt input_prompt">In&nbsp;[26]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># 展示经过两个维度的PCA转换之后的样本log-data</span>
@@ -22042,7 +22056,7 @@ GMM 优点: 可以预测概率分布,求解每个观测数据的每个component�
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[95]:</div>
+<div class="prompt input_prompt">In&nbsp;[27]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.cluster</span> <span class="kn">import</span> <span class="n">KMeans</span>
@@ -22145,7 +22159,7 @@ GMM 优点: 可以预测概率分布,求解每个观测数据的每个component�
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[96]:</div>
+<div class="prompt input_prompt">In&nbsp;[28]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># 从已有的实现中展示聚类的结果</span>
@@ -23294,14 +23308,14 @@ rkJggg==
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[97]:</div>
+<div class="prompt input_prompt">In&nbsp;[29]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># TODO：反向转换中心点</span>
 <span class="n">log_centers</span> <span class="o">=</span> <span class="n">pca</span><span class="o">.</span><span class="n">inverse_transform</span><span class="p">(</span><span class="n">centers</span><span class="p">)</span>
 
 <span class="c1"># TODO：对中心点做指数转换</span>
-<span class="n">true_centers</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">log_centers</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">true_centers</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">log_centers</span><span class="p">)</span>
 
 <span class="c1"># 显示真实的中心点</span>
 <span class="n">segments</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Segment {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">centers</span><span class="p">))]</span>
@@ -23337,21 +23351,21 @@ rkJggg==
   <tbody>
     <tr>
       <th>Segment 0</th>
-      <td>1539.0</td>
-      <td>2862.0</td>
-      <td>4391.0</td>
-      <td>366.0</td>
-      <td>1644.0</td>
-      <td>391.0</td>
+      <td>4184.0</td>
+      <td>7780.0</td>
+      <td>11937.0</td>
+      <td>994.0</td>
+      <td>4468.0</td>
+      <td>1064.0</td>
     </tr>
     <tr>
       <th>Segment 1</th>
-      <td>3357.0</td>
-      <td>698.0</td>
-      <td>907.0</td>
-      <td>798.0</td>
-      <td>107.0</td>
-      <td>259.0</td>
+      <td>9125.0</td>
+      <td>1897.0</td>
+      <td>2464.0</td>
+      <td>2168.0</td>
+      <td>291.0</td>
+      <td>703.0</td>
     </tr>
   </tbody>
 </table>
@@ -23381,8 +23395,8 @@ rkJggg==
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>回答:</strong></p>
-<p>Segment 0 在Fresh,Milk,Grocy,Detergents_Paper花费都在1500以上.Grocery最多,一半以上的花费,所以Cluster 0可能是超市类卖多种食品的客户.
-Segment 1 在Fresh上相比其他产品的花费要大很多,所以可以推测,Cluster 1为快餐类咖啡馆或饭店等.</p>
+<p>Segment 0 在总花费接近三万,与总体平均值33222相近,Grocery最多,接近总花销的一半.Fresh,Milk,Detergents_Paper花费都在4000以上,与总体平均值相近.所以Cluster 0可能是超市类卖多种食品的客户.
+Segment 1 总体花费较segment 0要少很多,也远小于总体平均值,可知其规模较小,但是在Fresh上相比其他产品的花费要大很多,占总花销的80%左右,所以可以推测,Cluster 1为快餐类咖啡馆或饭店等.</p>
 
 </div>
 </div>
@@ -23435,10 +23449,8 @@ Sample point 2 predicted to be in Cluster 1
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>回答:</strong></p>
-<p>Sample point 0 predicted to be in Cluster 0
-Sample point 1 predicted to be in Cluster 1
-Sample point 2 predicted to be in Cluster 1</p>
-<p>结果与之前预测的相同.</p>
+<p>比较样本点与簇的中心点可知,客户0(index 200)属于cluster 0 ,客户1(index 411)和客户2(index 3)属于cluster 1.
+算法与观察簇的结果相一致.</p>
 
 </div>
 </div>
@@ -23470,8 +23482,10 @@ Sample point 2 predicted to be in Cluster 1</p>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>回答：</strong></p>
-<p>根据聚类的结果,cluster 0总体不是很依赖与Fresh这种产品,有的客户会觉得5-3天会对他们有好处减少了派送成本,但是也会有一些特殊的饭店会对Fresh有特俗需求,会积极响应,比如某些清真餐厅羊肉牛肉供应.但是对于cluster 1 就不一样了,它们依赖于Fresh,所以对于这个改变,它们更倾向于消极的反馈.
+<p>根据聚类的结果,cluster0为超市或零售类客户,cluster1为快餐咖啡馆等小型客户.</p>
+<p>cluster 0总体不是很依赖与Fresh这种产品,有的客户会觉得5-3天会对他们有好处减少了派送成本,但是也会有一些特殊的饭店会对Fresh有特俗需求,会积极响应,比如某些清真餐厅羊肉牛肉供应.但是对于cluster 1 就不一样了,它们依赖于Fresh,所以对于这个改变,它们更倾向于消极的反馈.
 所以cluster 0的客户更有可能积极反馈,cluster 1相对可能性要少一些.可以在cluster 0这类客户中投入更大的经力做A/Btest.</p>
+<p>由上面的分析我们的策略为,在cluster0中做A/B tests,将cluster 0类的客户随机等量地分成A,B两组.A为控制组,5天/周配送;B为实验组,3天/周配送.观察AB两组的反馈积极性,观察1~2周,若B组好于A组或者A组的反馈符合我们的期望值,那么我们再继续实行四周以获得更准确的反馈;若反馈为消极的,那么我们便取消这个测试和这项服务. 假定反馈是积极的,之后再将A组改为3天/周配送,根据推断,多数客户将会给予的积极反馈,同时对于那些不是积极反馈的客户,我们可以保持他们的5天.周的派送服务.</p>
 
 </div>
 </div>
