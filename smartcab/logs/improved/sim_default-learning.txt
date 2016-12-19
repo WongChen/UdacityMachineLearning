@@ -1,0 +1,136 @@
+/-----------------------------------------
+| State-action rewards from Q-Learning
+\-----------------------------------------
+
+('right', 'green', 'right', 'forward')
+ -- forward : 0.83
+ -- None : 0.00
+ -- right : 0.00
+ -- left : 0.00
+
+('right', 'green', 'left', 'forward')
+ -- forward : 0.00
+ -- None : 0.00
+ -- right : 0.00
+ -- left : -9.75
+
+('left', 'green', 'right', 'left')
+ -- forward : -0.04
+ -- None : 0.00
+ -- right : 0.00
+ -- left : 0.00
+
+('right', 'green', 'forward', 'forward')
+ -- forward : 0.00
+ -- None : -2.10
+ -- right : 0.00
+ -- left : 0.00
+
+('right', 'green', None, None)
+ -- forward : 0.00
+ -- None : -2.30
+ -- right : 0.00
+ -- left : 0.55
+
+('right', 'red', 'left', 'right')
+ -- forward : -19.71
+ -- None : 0.00
+ -- right : 0.63
+ -- left : 0.00
+
+('right', 'green', 'left', 'left')
+ -- forward : 0.00
+ -- None : 0.39
+ -- right : 0.00
+ -- left : 0.00
+
+('right', 'green', None, 'right')
+ -- forward : 0.58
+ -- None : -2.91
+ -- right : 0.00
+ -- left : 0.00
+
+('left', 'red', None, None)
+ -- forward : 0.00
+ -- None : 0.00
+ -- right : -0.09
+ -- left : 0.00
+
+('left', 'green', None, None)
+ -- forward : 0.00
+ -- None : -3.84
+ -- right : 0.00
+ -- left : 1.37
+
+('right', 'red', 'left', None)
+ -- forward : -4.61
+ -- None : 0.00
+ -- right : 0.00
+ -- left : 0.00
+
+('forward', 'green', None, 'right')
+ -- forward : 1.20
+ -- None : 0.00
+ -- right : 0.00
+ -- left : 0.00
+
+('forward', 'green', 'left', None)
+ -- forward : 1.05
+ -- None : 0.00
+ -- right : 0.00
+ -- left : 0.00
+
+('right', 'red', 'left', 'forward')
+ -- forward : 0.00
+ -- None : 0.00
+ -- right : 1.33
+ -- left : 0.00
+
+('left', 'red', None, 'left')
+ -- forward : 0.00
+ -- None : 0.00
+ -- right : 0.08
+ -- left : 0.00
+
+('right', 'red', 'forward', None)
+ -- forward : 0.00
+ -- None : 1.14
+ -- right : 0.00
+ -- left : 0.00
+
+('right', 'red', None, None)
+ -- forward : 0.00
+ -- None : 0.00
+ -- right : 1.31
+ -- left : 0.00
+
+('forward', 'red', None, 'left')
+ -- forward : 0.00
+ -- None : 0.75
+ -- right : 0.00
+ -- left : 0.00
+
+('forward', 'green', None, 'left')
+ -- forward : 1.17
+ -- None : 0.00
+ -- right : 0.01
+ -- left : 0.00
+
+('forward', 'red', 'right', 'left')
+ -- forward : 0.00
+ -- None : 0.00
+ -- right : 0.21
+ -- left : 0.00
+
+('left', 'green', 'right', None)
+ -- forward : 0.00
+ -- None : -2.11
+ -- right : 0.00
+ -- left : 0.00
+
+('right', 'green', 'forward', 'left')
+ -- forward : 0.44
+ -- None : 0.02
+ -- right : 0.00
+ -- left : 0.13
+
