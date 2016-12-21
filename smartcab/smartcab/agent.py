@@ -45,11 +45,11 @@ class LearningAgent(Agent):
 
         if testing == False:
 
-            # self.epsilon -= 0.05 
+            self.epsilon -= 0.05 
 
             # improvation
             # self.epsilon = math.exp(-self.constant_a*self.t)
-            self.epsilon = self.constant_a**(self.t)
+			# self.epsilon = self.constant_a**(self.t)
             # self.epsilon = math.cos(self.constant_a*self.t)
             # self.epsilon = 1./(self.t*self.t)
 
@@ -80,7 +80,7 @@ class LearningAgent(Agent):
         #   If it is not, create a dictionary in the Q-table for the current 'state'
         #   For each action, set the Q-value for the state-action pair to 0
         
-        state = (waypoint, inputs['light'], inputs['oncoming'])
+        state = (waypoint, inputs['light'], inputs['oncoming'],inputs['left'])
 
         return state
 
@@ -215,7 +215,7 @@ def run():
     #   learning   - set to True to force the driving agent to use Q-learning
     #    * epsilon - continuous value for the exploration factor, default is 1
     #    * alpha   - continuous value for the learning rate, default is 0.5
-    agent = env.create_agent(LearningAgent, learning=True, epsilon=1, alpha=0.30)
+    agent = env.create_agent(LearningAgent, learning=True, epsilon=1, alpha=0.5)
     
     ##############
     # Follow the driving agent
@@ -230,14 +230,14 @@ def run():
     #   display      - set to False to disable the GUI if PyGame is enabled
     #   log_metrics  - set to True to log trial and simulation results to /logs
     #   optimized    - set to True to change the default log file name
-    sim = Simulator(env, update_delay=0.01, display=True, log_metrics=True, optimized=True)
+    sim = Simulator(env, update_delay=0.01, display=False, log_metrics=True, optimized=False)
     
     ##############
     # Run the simulator
     # Flags:
     #   tolerance  - epsilon tolerance before beginning testing, default is 0.05 
     #   n_test     - discrete number of testing trials to perform, default is 0
-    sim.run(tolerance=0.3, n_test=30)     
+    sim.run(tolerance=0.3, n_test=10)     
 
 
 if __name__ == '__main__':
